@@ -99,7 +99,13 @@ class SessionsView extends Component {
                 />
             );
         } else if (this.state.userId) {
-            content = <Panel><CallToAction><h3>{ t("console.sessions.table.noResults") }</h3></CallToAction></Panel>;
+            content = (
+                <Panel>
+                    <Panel.Body>
+                        <CallToAction><h3>{ t("console.sessions.table.noResults") }</h3></CallToAction>
+                    </Panel.Body>
+                </Panel>
+            );
         }
 
         return (

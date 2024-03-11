@@ -60,11 +60,13 @@ class ListApiView extends Component {
                 <Row >
                     <Col md={ 4 }>
                         <Panel className="list-panel-style">
-                            <nav className="sidenav" >
-                                <ol className="list-unstyled" >
-                                    { groups }
-                                </ol>
-                            </nav>
+                            <Panel.Body>
+                                <nav className="sidenav" >
+                                    <ol className="list-unstyled" >
+                                        { groups }
+                                    </ol>
+                                </nav>
+                            </Panel.Body>
                         </Panel>
                     </Col>
                     <Col md={ 8 }>

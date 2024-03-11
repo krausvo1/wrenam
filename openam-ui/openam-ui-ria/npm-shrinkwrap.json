@@ -19,7 +19,7 @@
         "microplugin": "0.0.3",
         "prop-types": "15.8.1",
         "react": "16.9.0",
-        "react-bootstrap": "0.30.1",
+        "react-bootstrap": "0.33.1",
         "react-bootstrap-table-next": "^4.0.3",
         "react-bootstrap-table2-paginator": "^2.1.2",
         "react-dom": "16.9.0",
@@ -1794,6 +1794,18 @@
         "node": ">=6.9.0"
       }
     },
+    "node_modules/@babel/runtime-corejs2": {
+      "version": "7.24.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@babel/runtime-corejs2/-/runtime-corejs2-7.24.0.tgz",
+      "integrity": "sha512-RZVGq1it0GA1K8rb+z7v7NzecP6VYCMedN7yHsCCIQUMmRXFCPJD8GISdf6uIGj7NDDihg7ieQEzpdpQbUL75Q==",
+      "dependencies": {
+        "core-js": "^2.6.12",
+        "regenerator-runtime": "^0.14.0"
+      },
+      "engines": {
+        "node": ">=6.9.0"
+      }
+    },
     "node_modules/@babel/template": {
       "version": "7.24.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@babel/template/-/template-7.24.0.tgz",
@@ -2795,11 +2807,36 @@
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/parse-json/-/parse-json-4.0.2.tgz",
       "integrity": "sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw=="
     },
+    "node_modules/@types/prop-types": {
+      "version": "15.7.11",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/prop-types/-/prop-types-15.7.11.tgz",
+      "integrity": "sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng=="
+    },
+    "node_modules/@types/react": {
+      "version": "18.2.64",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/react/-/react-18.2.64.tgz",
+      "integrity": "sha512-MlmPvHgjj2p3vZaxbQgFUQFvD8QiZwACfGqEdDSWou5yISWxDQ4/74nCAwsUiX7UFLKZz3BbVSPj+YxeoGGCfg==",
+      "dependencies": {
+        "@types/prop-types": "*",
+        "@types/scheduler": "*",
+        "csstype": "^3.0.2"
+      }
+    },
+    "node_modules/@types/react/node_modules/csstype": {
+      "version": "3.1.3",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/csstype/-/csstype-3.1.3.tgz",
+      "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+    },
     "node_modules/@types/resolve": {
       "version": "1.20.2",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/resolve/-/resolve-1.20.2.tgz",
       "integrity": "sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==",
       "dev": true
+    },
+    "node_modules/@types/scheduler": {
+      "version": "0.16.8",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/scheduler/-/scheduler-0.16.8.tgz",
+      "integrity": "sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A=="
     },
     "node_modules/@types/vinyl": {
       "version": "2.0.11",
@@ -3681,14 +3718,6 @@
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz",
       "integrity": "sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw=="
     },
-    "node_modules/babel-runtime": {
-      "version": "5.8.38",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/babel-runtime/-/babel-runtime-5.8.38.tgz",
-      "integrity": "sha512-KpgoA8VE/pMmNCrnEeeXqFG24TIH11Z3ZaimIhJWsin8EbfZy3WzFKUTIan10ZIDgRVvi9EkLbruJElJC9dRlg==",
-      "dependencies": {
-        "core-js": "^1.0.0"
-      }
-    },
     "node_modules/bach": {
       "version": "1.2.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/bach/-/bach-1.2.0.tgz",
@@ -4569,10 +4598,11 @@
       }
     },
     "node_modules/core-js": {
-      "version": "1.2.7",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/core-js/-/core-js-1.2.7.tgz",
-      "integrity": "sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==",
-      "deprecated": "core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js."
+      "version": "2.6.12",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/core-js/-/core-js-2.6.12.tgz",
+      "integrity": "sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==",
+      "deprecated": "core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.",
+      "hasInstallScript": true
     },
     "node_modules/core-js-compat": {
       "version": "3.36.0",
@@ -4895,9 +4925,12 @@
       }
     },
     "node_modules/dom-helpers": {
-      "version": "2.4.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-2.4.0.tgz",
-      "integrity": "sha512-urx8RB5tJo+FTdG0ZGPryUD25wUtK/QXRYg7+GaSgfNZNWOAcGZm0puzrKThZINKQJAVAlVijrAKoKd5jnl4FQ=="
+      "version": "3.4.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
+      "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
+      "dependencies": {
+        "@babel/runtime": "^7.1.2"
+      }
     },
     "node_modules/dom-serialize": {
       "version": "2.2.1",
@@ -10457,6 +10490,26 @@
         "react-is": "^16.13.1"
       }
     },
+    "node_modules/prop-types-extra": {
+      "version": "1.1.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/prop-types-extra/-/prop-types-extra-1.1.1.tgz",
+      "integrity": "sha512-59+AHNnHYCdiC+vMwY52WmvP5dM3QLeoumYuEyceQDi9aEhtwN9zIQ2ZNo25sMyXnbh32h+P1ezDsUpUH3JAew==",
+      "dependencies": {
+        "react-is": "^16.3.2",
+        "warning": "^4.0.0"
+      },
+      "peerDependencies": {
+        "react": ">=0.14.0"
+      }
+    },
+    "node_modules/prop-types-extra/node_modules/warning": {
+      "version": "4.0.3",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/warning/-/warning-4.0.3.tgz",
+      "integrity": "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==",
+      "dependencies": {
+        "loose-envify": "^1.0.0"
+      }
+    },
     "node_modules/proxy-from-env": {
       "version": "1.1.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
@@ -10648,23 +10701,26 @@
       }
     },
     "node_modules/react-bootstrap": {
-      "version": "0.30.1",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-bootstrap/-/react-bootstrap-0.30.1.tgz",
-      "integrity": "sha512-lwsrA8zDA58C3IrCakNOlWy06IRWOuumZ9ATmfo0RRgMk0BOVA+9dxMAgLZITlekLQjE0RHM1NRgx8FNA90Dqg==",
+      "version": "0.33.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-bootstrap/-/react-bootstrap-0.33.1.tgz",
+      "integrity": "sha512-qWTRravSds87P8WC82tETy2yIso8qDqlIm0czsrduCaYAFtHuyLu0XDbUlfLXeRzqgwm5sRk2wRaTNoiVkk/YQ==",
       "dependencies": {
-        "babel-runtime": "^5.8.38",
+        "@babel/runtime-corejs2": "^7.0.0",
         "classnames": "^2.2.5",
-        "dom-helpers": "^2.4.0",
-        "invariant": "^2.2.1",
-        "keycode": "^2.1.2",
-        "react-overlays": "^0.6.6",
+        "dom-helpers": "^3.2.0",
+        "invariant": "^2.2.4",
+        "keycode": "^2.2.0",
+        "prop-types": "^15.6.1",
+        "prop-types-extra": "^1.0.1",
+        "react-overlays": "^0.9.0",
         "react-prop-types": "^0.4.0",
-        "uncontrollable": "^4.0.1",
+        "react-transition-group": "^2.0.0",
+        "uncontrollable": "^7.0.2",
         "warning": "^3.0.0"
       },
       "peerDependencies": {
-        "react": ">=0.14.0",
-        "react-dom": ">=0.14.0"
+        "react": ">=16.3.0",
+        "react-dom": ">=16.3.0"
       }
     },
     "node_modules/react-bootstrap-table-next": {
@@ -10696,6 +10752,21 @@
         "prop-types": "^15.0.0",
         "react": "^16.3.0",
         "react-dom": "^16.3.0"
+      }
+    },
+    "node_modules/react-bootstrap/node_modules/react-transition-group": {
+      "version": "2.9.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-transition-group/-/react-transition-group-2.9.0.tgz",
+      "integrity": "sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==",
+      "dependencies": {
+        "dom-helpers": "^3.4.0",
+        "loose-envify": "^1.4.0",
+        "prop-types": "^15.6.2",
+        "react-lifecycles-compat": "^3.0.4"
+      },
+      "peerDependencies": {
+        "react": ">=15.0.0",
+        "react-dom": ">=15.0.0"
       }
     },
     "node_modules/react-dom": {
@@ -10734,26 +10805,35 @@
       "integrity": "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
     },
     "node_modules/react-overlays": {
-      "version": "0.6.12",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-overlays/-/react-overlays-0.6.12.tgz",
-      "integrity": "sha512-+snFq4z05zk11iviZBoCMBiQZOeNni4cXbfpwhcDN5Gxlkb98cg1ZbqNtHooeYBoyozb1AeVZ55FgvMdAJ+O1A==",
+      "version": "0.9.3",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-overlays/-/react-overlays-0.9.3.tgz",
+      "integrity": "sha512-u2T7nOLnK+Hrntho4p0Nxh+BsJl0bl4Xuwj/Y0a56xywLMetgAfyjnDVrudLXsNcKGaspoC+t3C1V80W9QQTdQ==",
       "dependencies": {
         "classnames": "^2.2.5",
-        "dom-helpers": "^3.2.0",
-        "react-prop-types": "^0.4.0",
+        "dom-helpers": "^3.2.1",
+        "prop-types": "^15.5.10",
+        "prop-types-extra": "^1.0.1",
+        "react-transition-group": "^2.2.1",
         "warning": "^3.0.0"
       },
       "peerDependencies": {
-        "react": ">=0.14.0",
-        "react-dom": ">=0.14.0"
+        "react": ">=16.3.0",
+        "react-dom": ">=16.3.0"
       }
     },
-    "node_modules/react-overlays/node_modules/dom-helpers": {
-      "version": "3.4.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
-      "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
+    "node_modules/react-overlays/node_modules/react-transition-group": {
+      "version": "2.9.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-transition-group/-/react-transition-group-2.9.0.tgz",
+      "integrity": "sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==",
       "dependencies": {
-        "@babel/runtime": "^7.1.2"
+        "dom-helpers": "^3.4.0",
+        "loose-envify": "^1.4.0",
+        "prop-types": "^15.6.2",
+        "react-lifecycles-compat": "^3.0.4"
+      },
+      "peerDependencies": {
+        "react": ">=15.0.0",
+        "react-dom": ">=15.0.0"
       }
     },
     "node_modules/react-prop-types": {
@@ -10805,14 +10885,6 @@
       "peerDependencies": {
         "react": "^15.3.0 || ^16.0.0",
         "react-dom": "^15.3.0 || ^16.0.0"
-      }
-    },
-    "node_modules/react-select/node_modules/dom-helpers": {
-      "version": "3.4.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
-      "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
-      "dependencies": {
-        "@babel/runtime": "^7.1.2"
       }
     },
     "node_modules/react-select/node_modules/react-transition-group": {
@@ -12976,14 +13048,17 @@
       }
     },
     "node_modules/uncontrollable": {
-      "version": "4.1.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/uncontrollable/-/uncontrollable-4.1.0.tgz",
-      "integrity": "sha512-YN1vmvC+UkttgPcFaal2UaNVODu6Rf1FU2x1guyiQRHOzSKkfTJLb0dzhJAEfRsAtjog4PF9UyNWUM2crqDyvg==",
+      "version": "7.2.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/uncontrollable/-/uncontrollable-7.2.1.tgz",
+      "integrity": "sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==",
       "dependencies": {
-        "invariant": "^2.1.0"
+        "@babel/runtime": "^7.6.3",
+        "@types/react": ">=16.9.11",
+        "invariant": "^2.2.4",
+        "react-lifecycles-compat": "^3.0.4"
       },
       "peerDependencies": {
-        "react": ">=0.11.0"
+        "react": ">=15.0.0"
       }
     },
     "node_modules/underscore": {
@@ -14998,6 +15073,15 @@
         "regenerator-runtime": "^0.14.0"
       }
     },
+    "@babel/runtime-corejs2": {
+      "version": "7.24.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@babel/runtime-corejs2/-/runtime-corejs2-7.24.0.tgz",
+      "integrity": "sha512-RZVGq1it0GA1K8rb+z7v7NzecP6VYCMedN7yHsCCIQUMmRXFCPJD8GISdf6uIGj7NDDihg7ieQEzpdpQbUL75Q==",
+      "requires": {
+        "core-js": "^2.6.12",
+        "regenerator-runtime": "^0.14.0"
+      }
+    },
     "@babel/template": {
       "version": "7.24.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@babel/template/-/template-7.24.0.tgz",
@@ -15760,11 +15844,38 @@
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/parse-json/-/parse-json-4.0.2.tgz",
       "integrity": "sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw=="
     },
+    "@types/prop-types": {
+      "version": "15.7.11",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/prop-types/-/prop-types-15.7.11.tgz",
+      "integrity": "sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng=="
+    },
+    "@types/react": {
+      "version": "18.2.64",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/react/-/react-18.2.64.tgz",
+      "integrity": "sha512-MlmPvHgjj2p3vZaxbQgFUQFvD8QiZwACfGqEdDSWou5yISWxDQ4/74nCAwsUiX7UFLKZz3BbVSPj+YxeoGGCfg==",
+      "requires": {
+        "@types/prop-types": "*",
+        "@types/scheduler": "*",
+        "csstype": "^3.0.2"
+      },
+      "dependencies": {
+        "csstype": {
+          "version": "3.1.3",
+          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/csstype/-/csstype-3.1.3.tgz",
+          "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+        }
+      }
+    },
     "@types/resolve": {
       "version": "1.20.2",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/resolve/-/resolve-1.20.2.tgz",
       "integrity": "sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==",
       "dev": true
+    },
+    "@types/scheduler": {
+      "version": "0.16.8",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/@types/scheduler/-/scheduler-0.16.8.tgz",
+      "integrity": "sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A=="
     },
     "@types/vinyl": {
       "version": "2.0.11",
@@ -16471,14 +16582,6 @@
       "version": "6.18.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz",
       "integrity": "sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw=="
-    },
-    "babel-runtime": {
-      "version": "5.8.38",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/babel-runtime/-/babel-runtime-5.8.38.tgz",
-      "integrity": "sha512-KpgoA8VE/pMmNCrnEeeXqFG24TIH11Z3ZaimIhJWsin8EbfZy3WzFKUTIan10ZIDgRVvi9EkLbruJElJC9dRlg==",
-      "requires": {
-        "core-js": "^1.0.0"
-      }
     },
     "bach": {
       "version": "1.2.0",
@@ -17226,9 +17329,9 @@
       }
     },
     "core-js": {
-      "version": "1.2.7",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/core-js/-/core-js-1.2.7.tgz",
-      "integrity": "sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA=="
+      "version": "2.6.12",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/core-js/-/core-js-2.6.12.tgz",
+      "integrity": "sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ=="
     },
     "core-js-compat": {
       "version": "3.36.0",
@@ -17481,9 +17584,12 @@
       }
     },
     "dom-helpers": {
-      "version": "2.4.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-2.4.0.tgz",
-      "integrity": "sha512-urx8RB5tJo+FTdG0ZGPryUD25wUtK/QXRYg7+GaSgfNZNWOAcGZm0puzrKThZINKQJAVAlVijrAKoKd5jnl4FQ=="
+      "version": "3.4.0",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
+      "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
+      "requires": {
+        "@babel/runtime": "^7.1.2"
+      }
     },
     "dom-serialize": {
       "version": "2.2.1",
@@ -22017,6 +22123,25 @@
         "react-is": "^16.13.1"
       }
     },
+    "prop-types-extra": {
+      "version": "1.1.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/prop-types-extra/-/prop-types-extra-1.1.1.tgz",
+      "integrity": "sha512-59+AHNnHYCdiC+vMwY52WmvP5dM3QLeoumYuEyceQDi9aEhtwN9zIQ2ZNo25sMyXnbh32h+P1ezDsUpUH3JAew==",
+      "requires": {
+        "react-is": "^16.3.2",
+        "warning": "^4.0.0"
+      },
+      "dependencies": {
+        "warning": {
+          "version": "4.0.3",
+          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/warning/-/warning-4.0.3.tgz",
+          "integrity": "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==",
+          "requires": {
+            "loose-envify": "^1.0.0"
+          }
+        }
+      }
+    },
     "proxy-from-env": {
       "version": "1.1.0",
       "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
@@ -22179,19 +22304,35 @@
       }
     },
     "react-bootstrap": {
-      "version": "0.30.1",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-bootstrap/-/react-bootstrap-0.30.1.tgz",
-      "integrity": "sha512-lwsrA8zDA58C3IrCakNOlWy06IRWOuumZ9ATmfo0RRgMk0BOVA+9dxMAgLZITlekLQjE0RHM1NRgx8FNA90Dqg==",
+      "version": "0.33.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-bootstrap/-/react-bootstrap-0.33.1.tgz",
+      "integrity": "sha512-qWTRravSds87P8WC82tETy2yIso8qDqlIm0czsrduCaYAFtHuyLu0XDbUlfLXeRzqgwm5sRk2wRaTNoiVkk/YQ==",
       "requires": {
-        "babel-runtime": "^5.8.38",
+        "@babel/runtime-corejs2": "^7.0.0",
         "classnames": "^2.2.5",
-        "dom-helpers": "^2.4.0",
-        "invariant": "^2.2.1",
-        "keycode": "^2.1.2",
-        "react-overlays": "^0.6.6",
+        "dom-helpers": "^3.2.0",
+        "invariant": "^2.2.4",
+        "keycode": "^2.2.0",
+        "prop-types": "^15.6.1",
+        "prop-types-extra": "^1.0.1",
+        "react-overlays": "^0.9.0",
         "react-prop-types": "^0.4.0",
-        "uncontrollable": "^4.0.1",
+        "react-transition-group": "^2.0.0",
+        "uncontrollable": "^7.0.2",
         "warning": "^3.0.0"
+      },
+      "dependencies": {
+        "react-transition-group": {
+          "version": "2.9.0",
+          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-transition-group/-/react-transition-group-2.9.0.tgz",
+          "integrity": "sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==",
+          "requires": {
+            "dom-helpers": "^3.4.0",
+            "loose-envify": "^1.4.0",
+            "prop-types": "^15.6.2",
+            "react-lifecycles-compat": "^3.0.4"
+          }
+        }
       }
     },
     "react-bootstrap-table-next": {
@@ -22247,22 +22388,27 @@
       "integrity": "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
     },
     "react-overlays": {
-      "version": "0.6.12",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-overlays/-/react-overlays-0.6.12.tgz",
-      "integrity": "sha512-+snFq4z05zk11iviZBoCMBiQZOeNni4cXbfpwhcDN5Gxlkb98cg1ZbqNtHooeYBoyozb1AeVZ55FgvMdAJ+O1A==",
+      "version": "0.9.3",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-overlays/-/react-overlays-0.9.3.tgz",
+      "integrity": "sha512-u2T7nOLnK+Hrntho4p0Nxh+BsJl0bl4Xuwj/Y0a56xywLMetgAfyjnDVrudLXsNcKGaspoC+t3C1V80W9QQTdQ==",
       "requires": {
         "classnames": "^2.2.5",
-        "dom-helpers": "^3.2.0",
-        "react-prop-types": "^0.4.0",
+        "dom-helpers": "^3.2.1",
+        "prop-types": "^15.5.10",
+        "prop-types-extra": "^1.0.1",
+        "react-transition-group": "^2.2.1",
         "warning": "^3.0.0"
       },
       "dependencies": {
-        "dom-helpers": {
-          "version": "3.4.0",
-          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
-          "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
+        "react-transition-group": {
+          "version": "2.9.0",
+          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-transition-group/-/react-transition-group-2.9.0.tgz",
+          "integrity": "sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==",
           "requires": {
-            "@babel/runtime": "^7.1.2"
+            "dom-helpers": "^3.4.0",
+            "loose-envify": "^1.4.0",
+            "prop-types": "^15.6.2",
+            "react-lifecycles-compat": "^3.0.4"
           }
         }
       }
@@ -22309,14 +22455,6 @@
         "react-transition-group": "^2.2.1"
       },
       "dependencies": {
-        "dom-helpers": {
-          "version": "3.4.0",
-          "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.4.0.tgz",
-          "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
-          "requires": {
-            "@babel/runtime": "^7.1.2"
-          }
-        },
         "react-transition-group": {
           "version": "2.9.0",
           "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/react-transition-group/-/react-transition-group-2.9.0.tgz",
@@ -24117,11 +24255,14 @@
       "dev": true
     },
     "uncontrollable": {
-      "version": "4.1.0",
-      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/uncontrollable/-/uncontrollable-4.1.0.tgz",
-      "integrity": "sha512-YN1vmvC+UkttgPcFaal2UaNVODu6Rf1FU2x1guyiQRHOzSKkfTJLb0dzhJAEfRsAtjog4PF9UyNWUM2crqDyvg==",
+      "version": "7.2.1",
+      "resolved": "https://wrensecurity.jfrog.io/artifactory/api/npm/npm-virtual/uncontrollable/-/uncontrollable-7.2.1.tgz",
+      "integrity": "sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==",
       "requires": {
-        "invariant": "^2.1.0"
+        "@babel/runtime": "^7.6.3",
+        "@types/react": ">=16.9.11",
+        "invariant": "^2.2.4",
+        "react-lifecycles-compat": "^3.0.4"
       }
     },
     "underscore": {

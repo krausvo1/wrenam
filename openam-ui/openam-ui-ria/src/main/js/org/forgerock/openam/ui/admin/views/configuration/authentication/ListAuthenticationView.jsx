@@ -52,25 +52,27 @@ export default class ListAuthenticationView extends Component {
                 <PageDescription>{ t("console.configuration.authentication.description") }</PageDescription>
 
                 <Panel>
-                    <Block
-                        description={ t("console.configuration.authentication.description") }
-                        header={ t("console.configuration.authentication.core.title") }
-                    >
-                        <ListGroup>
-                            <ListGroupItem href="#configure/authentication/core">
-                                { t("console.configuration.authentication.core.coreAttributes") }
-                            </ListGroupItem>
-                        </ListGroup>
-                    </Block>
+                    <Panel.Body>
+                        <Block
+                            description={ t("console.configuration.authentication.description") }
+                            header={ t("console.configuration.authentication.core.title") }
+                        >
+                            <ListGroup>
+                                <ListGroupItem href="#configure/authentication/core">
+                                    { t("console.configuration.authentication.core.coreAttributes") }
+                                </ListGroupItem>
+                            </ListGroup>
+                        </Block>
 
-                    <Block
-                        description={ t("console.configuration.authentication.modules.title") }
-                        header={ t("console.configuration.authentication.modules.title") }
-                    >
-                        <ListGroup>
-                            { items }
-                        </ListGroup>
-                    </Block>
+                        <Block
+                            description={ t("console.configuration.authentication.modules.title") }
+                            header={ t("console.configuration.authentication.modules.title") }
+                        >
+                            <ListGroup>
+                                { items }
+                            </ListGroup>
+                        </Block>
+                    </Panel.Body>
                 </Panel>
             </Grid>
         );

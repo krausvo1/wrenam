@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2024 Wren Security.
  */
 
 import PropTypes from "prop-types";
@@ -44,7 +45,8 @@ const SideNavGroupItem = ({ group, activeItem, onItemClick }) => {
 
 SideNavGroupItem.propTypes = {
     activeItem: PropTypes.string.isRequired,
-    group: PropTypes.shape.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    group: PropTypes.object.isRequired,
     onItemClick: PropTypes.func.isRequired
 };
 
