@@ -19,7 +19,8 @@ import _ from "lodash";
 import { Button, ButtonToolbar, ControlLabel, Panel, Table } from "react-bootstrap";
 import { t } from "i18next";
 import Block from "components/Block";
-import React, { Component, PropTypes } from "react";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import SessionsTableRow from "./SessionsTableRow";
 import store from "store/index";
 
@@ -39,7 +40,7 @@ class SessionsTable extends Component {
         };
     }
 
-    componentWillReceiveProps (nextProps) {
+    UNSAFE_componentWillReceiveProps (nextProps) {
         const updated = _.findByValues(nextProps.data, "sessionHandle", _.map(this.state.checked, "sessionHandle"));
         this.setState({
             checked: updated,
@@ -112,6 +113,7 @@ class SessionsTable extends Component {
                                         <SessionsTableRow
                                             checked={ isChecked(session) }
                                             data={ session }
+                                            key={ store.getState().session.sessionHandle }
                                             onDelete={ this.handleDeleteRow }
                                             onSelect={ this.handleSelectRow }
                                             sessionHandle={ store.getState().session.sessionHandle }

@@ -14,7 +14,8 @@
  * Copyright 2016 ForgeRock AS.
  */
 
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import _ from "lodash";
 
 import SideNavChildItem from "./SideNavChildItem";

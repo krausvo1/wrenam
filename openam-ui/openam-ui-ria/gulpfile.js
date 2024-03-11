@@ -37,17 +37,29 @@ const TARGET_PATH = "target/www";
 const TESTS_PATH = "target/test";
 
 const MODULE_RESOURCES = {
+    /* eslint-disable max-len */
     "requirejs-text/text.js": "libs/text.js",
     "selectize/dist/js/selectize.min.js": "libs/selectize-non-standalone.js",
     "microplugin/src/microplugin.js": "libs/microplugin.js",
     "json-editor/dist/jsoneditor.min.js": "libs/jsoneditor.js",
+    "react-redux/dist/react-redux.min.js": "libs/react-redux.js",
     "redux/dist/redux.min.js": "libs/redux.js",
+    "redux-actions/dist/redux-actions.min.js": "libs/redux-actions.js",
     "react-bootstrap/dist/react-bootstrap.min.js": "libs/react-bootstrap.js",
+    "react-bootstrap-table-next/dist/react-bootstrap-table-next.min.js": "libs/react-bootstrap-table-next.js",
+    "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css": "css/react-bootstrap-table-next.css",
+    "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.js": "libs/react-bootstrap-table2-paginator.js",
+    "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css": "css/react-bootstrap-table2-paginator.css",
     "classnames/index.js": "libs/classnames.js",
-    "react-select/dist/react-select.min.js": "libs/react-select.js",
-    "react-select/dist/react-select.min.css": "css/react-select.css",
+    "react-dom/umd/react-dom.production.min.js": "libs/react-dom.js",
+    "react/umd/react.production.min.js": "libs/react.js",
+    "prop-types/prop-types.min.js": "libs/prop-types.js",
+    "react-select/dist/react-select.js": "libs/react-select.js",
+    "react-input-autosize/dist/react-input-autosize.min.js": "libs/react-input-autosize.js",
+    "emotion/dist/emotion.umd.min.js": "libs/emotion.js",
     "backbone.paginator/lib/backbone.paginator.min.js": "libs/backbone.paginator.js",
     "handlebars/dist/handlebars.amd.min.js": "libs/handlebars.js"
+    /* eslint-enable max-len */
 };
 
 const LOCAL_RESOURCES = {
@@ -100,6 +112,7 @@ gulp.task("build:scriptsJSM", useBuildScripts(
         dest: TARGET_PATH,
         presets: babelConfig.presets,
         plugins: [
+            "@babel/plugin-transform-class-properties",
             ["@babel/plugin-transform-classes", { "loose": true }],
             "@babel/plugin-transform-modules-amd"
         ]
@@ -153,7 +166,9 @@ gulp.task("build", gulp.series(
         "build:scripts",
         "build:scriptsJSM",
         "build:compose",
-        "build:editor",
+        "build:editor"
+    ),
+    gulp.parallel(
         "build:libs"
     ),
     gulp.parallel(
