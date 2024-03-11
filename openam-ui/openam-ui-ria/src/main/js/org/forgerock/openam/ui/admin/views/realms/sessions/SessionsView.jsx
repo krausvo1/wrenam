@@ -29,7 +29,7 @@ import AsyncSingleSelect from "components/inputs/select/AsyncSingleSelect";
 import CallToAction from "components/CallToAction";
 import PageDescription from "components/PageDescription";
 import SessionsTable from "./SessionsTable";
-import SimplePageHeader from "components/SimplePageHeader";
+import PageHeader from "components/PageHeader";
 import withRouter from "org/forgerock/commons/ui/common/components/hoc/withRouter";
 import withRouterPropType from "org/forgerock/commons/ui/common/components/hoc/withRouterPropType";
 
@@ -103,7 +103,8 @@ class SessionsView extends Component {
 
         return (
             <div>
-                <SimplePageHeader title={ t("console.sessions.title") } />
+                <PageHeader title={ t("console.sessions.title") } />
+
                 <PageDescription>{ t("console.sessions.search.intro") }</PageDescription>
 
                 <FormGroup controlId="findAUser">
