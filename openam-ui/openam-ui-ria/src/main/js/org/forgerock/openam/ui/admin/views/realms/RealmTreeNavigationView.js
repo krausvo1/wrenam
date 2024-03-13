@@ -100,9 +100,9 @@ define([
             route: "realmsResourceTypes"
         }]
     }, {
-        title: "console.common.navigation.subjects",
+        title: "console.common.navigation.identities",
         icon: "fa-users",
-        event: "main.navigation.EVENT_REDIRECT_TO_JATO_SUBJECTS"
+        route: "realmsIdentities"
     }, {
         title: "console.common.navigation.sts",
         icon: "fa-tty",

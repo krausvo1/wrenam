@@ -44,10 +44,12 @@ define([
     "org/forgerock/openam/ui/common/models/JSONValues",
     "org/forgerock/openam/ui/common/views/jsonSchema/iteratees/createJSONEditorView",
     "org/forgerock/openam/ui/common/views/jsonSchema/iteratees/emptyProperties",
+    "org/forgerock/openam/ui/common/views/jsonSchema/iteratees/setDefaultPropertiesToRequired",
     "org/forgerock/openam/ui/common/views/jsonSchema/iteratees/setDefaultPropertiesToRequiredAndEmpty",
     "org/forgerock/openam/ui/common/views/jsonSchema/iteratees/showEnablePropertyIfAllPropertiesHidden"
 ], ($, _, Backbone, JSONSchema, JSONValues, createJSONEditorView, emptyProperties,
-        setDefaultPropertiesToRequiredAndEmpty, showEnablePropertyIfAllPropertiesHidden) => {
+        setDefaultPropertiesToRequired, setDefaultPropertiesToRequiredAndEmpty,
+        showEnablePropertyIfAllPropertiesHidden) => {
     /**
      * There is no reliable method of knowing if the form rendered by the JSON Editor has finished being added to the
      * DOM. We do however wish to signal when render is complete so views can perform actions (e.g. enabling buttons
@@ -74,6 +76,7 @@ define([
             }
 
             this.options = _.defaults(options, {
+                showOnlyRequired: false,
                 showOnlyRequiredAndEmpty: false
             });
         },
@@ -92,6 +95,12 @@ define([
             if (this.options.showOnlyRequiredAndEmpty) {
                 orderedSchemaValuePairs = _(orderedSchemaValuePairs)
                     .map(setDefaultPropertiesToRequiredAndEmpty)
+                    .map(showEnablePropertyIfAllPropertiesHidden)
+                    .omitBy(emptyProperties)
+                    .value();
+            } else if (this.options.showOnlyRequired) {
+                orderedSchemaValuePairs = _(orderedSchemaValuePairs)
+                    .map(setDefaultPropertiesToRequired.default)
                     .map(showEnablePropertyIfAllPropertiesHidden)
                     .omitBy(emptyProperties)
                     .value();

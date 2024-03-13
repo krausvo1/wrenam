@@ -15,30 +15,22 @@
  */
 
 define([
-    "lodash"
-], (_) => {
-    /**
-     * Determines whether the specified object is of type <code>object</code>
-     * @param   {Object}  object Object to determine the type of
-     * @returns {Boolean}        Whether the object is of type <code>object</code>
-     */
-    function isObjectType (object) {
-        return object.type === "object";
-    }
-
+    "lodash",
+    "components/form/schema/isObjectType"
+], (_, isObjectType) => {
     /**
      * Recursively invokes the specified functions over each object's properties
      * @param {Object} object   Object with properties
      * @param {Array} callbacks Array of functions
      */
     function eachProperty (object, callbacks) {
-        if (isObjectType(object)) {
+        if (isObjectType.default(object)) {
             _.forEach(object.properties, (property, key) => {
                 _.forEach(callbacks, (callback) => {
                     callback(property, key);
                 });
 
-                if (isObjectType(property)) {
+                if (isObjectType.default(property)) {
                     eachProperty(property, callbacks);
                 }
             });

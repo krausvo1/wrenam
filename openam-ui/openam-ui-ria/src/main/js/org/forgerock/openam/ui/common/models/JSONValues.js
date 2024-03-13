@@ -47,8 +47,9 @@ define([
             .keys()
             .value();
 
-        const predicate = ["_id", "_type", "defaults", ...collectionProperties];
-        const simplePropertiesToGroup = _.omit(raw, ...predicate);
+        const simplePropertiesToGroup = _.omitBy(raw, (prop, key) => {
+            return _.startsWith(key, "_") || key === "defaults" || collectionProperties.indexOf(key) !== -1;
+        });
 
         if (_.isEmpty(simplePropertiesToGroup)) {
             return raw;
@@ -78,9 +79,16 @@ define([
             return raw;
         }
 
-        const values = { ...raw, ...collectionProperties };
-
         const collectionPropertiesKeys = _.keys(collectionProperties);
+        const allPropertiesKeys = _.keys(raw.defaults);
+        const nonGroupedProperties = _.difference(allPropertiesKeys, collectionPropertiesKeys);
+
+        if (!_.isEmpty(nonGroupedProperties)) {
+            console.warn(`Detected properties which do not belong to any group: [${nonGroupedProperties}]. ` +
+                "They will be displayed under the 'Realm Defaults' tab");
+        }
+
+        const values = { ...raw, ...collectionProperties };
         values[`_${groupKey}CollectionProperties`] = collectionPropertiesKeys;
         values[groupKey] = _.omit(values[groupKey], collectionPropertiesKeys);
 
@@ -163,6 +171,81 @@ define([
         }
         removeInheritance () {
             return new JSONValues(_.mapValues(this.raw, "value"));
+        }
+
+        /**
+         * Returns a new JSONValues object with any null password properties that have inheritance (either on or off)
+         * with the value removed, or any null password properties that do not have inheritance removed completely.
+         * @param   {JSONSchema} jsonSchema Corresponding JSONSchema object
+         * @returns {JSONValues} a new JSONValues Object
+         * @example
+         * const schema = new JSONSchema(...);
+         * const values = new JSONValues({
+         *      "property.1": "test",
+         *      "password.2": "password",
+         *      "password.3": null,
+         *      "password.4": { value: null, inherited: true },
+         *      "password.5": { value: null, inherited: false },
+         *      "password.6": { value: "password", inherited: false }
+         *      "collection.prop.1": {
+         *          "property.1": "test",
+         *          "password.2": "password",
+         *          "password.3": null,
+         *          "password.4": { value: null, inherited: true },
+         *          "password.5": { value: null, inherited: false },
+         *          "password.6": { value: "password", inherited: false }
+         *      },
+         *      "not.in.schema.1": "value"
+         *      "not.in.schema.2": {
+         *          "password.1": { value: "password", inherited: false },
+         *          "password.2": null, inherited: false
+         *      }
+         * });
+         *
+         * values.removeNullPasswords(schema); // => {
+         *      "property.1": "test",
+         *      "password.2": "password",
+         *      "password.4": { inherited: true },
+         *      "password.5": { inherited: false },
+         *      "password.6": { value: "password" }
+         *      "collection.prop.1": {
+         *          "property.1": "test",
+         *          "password.2": "password",
+         *          "password.4": { inherited: true },
+         *          "password.5": { inherited: false },
+         *          "password.6": { value: "password", inherited: false }
+         *      },
+         *      "not.in.schema.1": "value"
+         *      "not.in.schema.2": {
+         *          "password.1": { value: "password", inherited: false },
+         *          "password.2": null, inherited: false
+         *      }
+         * });
+         */
+        removeNullPasswords (jsonSchema) {
+            const hasInheritance = (property) => (
+                !_.isEmpty(property) && property.type === "object" && _.has(property, "properties.inherited")
+            );
+            const isCollection = (schema, key) => _.has(schema.properties[key], "properties");
+            const isNullPassword = (value, schema, path) => _.isNull(value) && _.get(schema, path) === "password";
+            const omitNullPasswords = (values, schema) => {
+                return _.reduce(values, (result, value, key) => {
+                    if (hasInheritance(schema.properties[key])) {
+                        result[key] = isNullPassword(value.value, schema.properties[key], "properties.value.format")
+                            ? { inherited: value.inherited } // return only the inheritance flag
+                            : value;
+                    } else if (isCollection(schema, key)) {
+                        result[key] = omitNullPasswords(value, schema.properties[key]);
+                    } else if (isNullPassword(value, schema.properties[key], "format")) {
+                        // We explicitly do not include null passwords
+                    } else {
+                        result[key] = value;
+                    }
+                    return result;
+                }, {});
+            };
+
+            return new JSONValues(omitNullPasswords(this.raw, jsonSchema.raw));
         }
         toJSON () {
             let json = _.cloneDeep(this.raw);

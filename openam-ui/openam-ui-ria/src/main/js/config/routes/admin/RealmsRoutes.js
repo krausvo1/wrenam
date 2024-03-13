@@ -244,6 +244,79 @@ define(function () {
                 navGroup: "admin",
                 forceUpdate: true
             },
+            "realmsIdentities": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/Identities",
+                url: scopedByRealm("identities"),
+                pattern: "realms/?/identities",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesUsersEdit": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/users/edit/EditUser",
+                url: scopedByRealm("identities/edit/([^/]*)"),
+                pattern: "realms/?/identities/edit/?",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesUsersNew": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/users/new/NewUserContainer",
+                url: scopedByRealm("identities/new"),
+                pattern: "realms/?/identities/new",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesUsersServicesNew": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                // eslint-disable-next-line max-len
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/users/edit/services/new/NewUserServiceContainer",
+                url: scopedByRealm("identities/edit/([^/]*)/services/new/([^/]*)"),
+                pattern: "realms/?/identities/edit/?/services/new/?",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesUsersServicesEdit": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/users/edit/services/edit/EditUserService",
+                url: scopedByRealm("identities/edit/([^/]*)/services/edit/([^/]*)"),
+                pattern: "realms/?/identities/edit/?/services/edit/?",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesGroupsEdit": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/groups/edit/EditGroupContainer",
+                url: scopedByRealm("identities/groups/edit/([^/]*)"),
+                pattern: "realms/?/identities/groups/edit/?",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesAllAuthenticatedEdit": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/groups/edit/EditAllAuthenticatedContainer",
+                url: scopedByRealm("identities/groups/edit/allAuthenticatedIdentities"),
+                pattern: "realms/?/identities/groups/edit/?",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
+            "realmsIdentitiesGroupsNew": {
+                view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
+                page: "org/forgerock/openam/ui/admin/views/realms/identities/groups/new/NewGroupContainer",
+                url: scopedByRealm("identities/groups/new"),
+                pattern: "realms/?/identities/groups/new",
+                role: "ui-realm-admin",
+                navGroup: "admin",
+                forceUpdate: true
+            },
             "realmsResourceTypes": {
                 view: "org/forgerock/openam/ui/admin/views/realms/RealmTreeNavigationView",
                 page: "org/forgerock/openam/ui/admin/views/realms/authorization/resourceTypes/ResourceTypesView",

@@ -15,8 +15,9 @@
  */
 
 define([
-    "org/forgerock/openam/ui/common/models/JSONValues"
-], (JSONValues) => {
+    "org/forgerock/openam/ui/common/models/JSONValues",
+    "org/forgerock/openam/ui/common/models/JSONSchema"
+], (JSONValues, JSONSchema) => {
     describe("org/forgerock/openam/ui/common/models/JSONValues", () => {
         describe("#constructor", () => {
             let globalValues;
@@ -84,6 +85,10 @@ define([
                 expect(defaultsValues.raw).to.contain.keys("_defaultsCollectionProperties");
             });
 
+            it("keeps \"defaults\" property in place as there are simple props present", () => {
+                expect(defaultsValues.raw).to.contain.keys("defaults");
+            });
+
             it("ungroups \"defaults\" collection values, moving them one level up (collection props only)", () => {
                 expect(defaultsCollectionValues.raw).to.contain.keys("defaultsCollection");
             });
@@ -138,6 +143,7 @@ define([
         describe("#toJSON", () => {
             let values;
             let valueWithDefaultsCollectionProperties;
+            let valuesWithDefaultsMixedProperties;
 
             beforeEach(() => {
                 values = new JSONValues({
@@ -163,6 +169,19 @@ define([
                     "defaultsCollection2": {
                         "collectionItem1": "value1",
                         "collectionItem2": "value2"
+                    }
+                }).toJSON();
+
+                valuesWithDefaultsMixedProperties = new JSONValues({
+                    "_id": "",
+                    "_type": {},
+                    "defaultsCollection": {
+                        "collectionItem1": "value1",
+                        "collectionItem2": "value2"
+                    },
+                    "_defaultsCollectionProperties": ["defaultsCollection"],
+                    "defaults": {
+                        "defaultsSimple": "simpleValue"
                     }
                 }).toJSON();
             });
@@ -202,9 +221,230 @@ define([
                     .to.contain.keys("defaultsCollection2");
             });
 
-            it("deletes meta info key \"_defaultsCollectionProperties\" from the values", () => {
+            // eslint-disable-next-line max-len
+            it("deletes meta info key \"_defaultsCollectionProperties\" from the \"valueWithDefaultsCollectionProperties\"", () => {
                 expect(JSON.parse(valueWithDefaultsCollectionProperties))
                     .to.not.contain.keys("_defaultsCollectionProperties");
+            });
+
+            // eslint-disable-next-line max-len
+            it("deletes meta info key \"_defaultsCollectionProperties\" from the \"valuesWithDefaultsMixedProperties\"", () => {
+                expect(JSON.parse(valuesWithDefaultsMixedProperties))
+                    .to.not.contain.keys("_defaultsCollectionProperties");
+            });
+        });
+
+        describe("#removeNullPasswords", () => {
+            context("when using a schema without inheritance", () => {
+                const schema = new JSONSchema({
+                    type: "object",
+                    properties: {
+                        "non.password.property.1": { type: "string" },
+                        "password.1": { format: "password" },
+                        "password.2": { format: "password" },
+                        "collection.prop.1": {
+                            type: "object",
+                            properties: {
+                                "non.password.property.2": { type: "string" },
+                                "password.3": { format: "password" },
+                                "password.4": { format: "password" },
+                                "object.property": { type: "object" },
+                                "collection.prop.2": {
+                                    type: "object",
+                                    properties: {
+                                        "non.password.property.3": { type: "string" },
+                                        "password.5": { format: "password" },
+                                        "password.6": { format: "password" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                const values = new JSONValues({
+                    _id: "",
+                    _type: {},
+                    "non.password.property.1": "test",
+                    "password.1": "password",
+                    "password.2": null,
+                    "collection.prop.1": {
+                        "non.password.property.2": "test",
+                        "password.3": "password",
+                        "password.4": null,
+                        "object.property": {
+                            objectProp: "value"
+                        },
+                        "collection.prop.2": {
+                            "non.password.property.3": "test",
+                            "password.5": "password",
+                            "password.6": null
+                        },
+                        "not.in.schema": {
+                            "property": "test",
+                            "password": null
+                        }
+                    }
+                });
+
+                const valuesWithoutNullPasswords = values.removeNullPasswords(schema);
+
+                it("removes non-grouped null passwords", () => {
+                    expect(valuesWithoutNullPasswords.raw).to.not.have.keys("password.2");
+                });
+
+                it("removes null passwords from 'collection.prop.1' collection", () => {
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]).to.not.have.keys("password.4");
+                });
+
+                it("removes null passwords from a collection property inside 'collection.prop.1' collection", () => {
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"])
+                        .to.not.have.keys("password.6");
+                });
+
+                it("leaves non-null passwords untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("password.1");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]).to.contain.keys("password.3");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"])
+                        .to.contain.keys("password.5");
+                });
+
+                it("leaves non-password properties untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("non.password.property.1");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"])
+                        .to.contain.keys("non.password.property.2");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]).to.contain.keys("object.property");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"])
+                        .to.contain.keys("non.password.property.3");
+                });
+
+                it("leaves non schema properties untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("_id");
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("_type");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["not.in.schema"])
+                        .to.be.eql({ "property": "test", "password": null });
+                });
+            });
+
+            context("when using a schema with inheritance", () => {
+                const schema = new JSONSchema({
+                    type: "object",
+                    properties: {
+                        "password.1": { properties: { inherited: { }, value: { format: "password" } } },
+                        "password.2": { properties: { inherited: { }, value: { format: "password" } } },
+                        "password.3": { properties: { inherited: { }, value: { format: "password" } } },
+                        "collection.prop.1": {
+                            type: "object",
+                            properties: {
+                                "password.4": { properties: { inherited: { }, value: { format: "password" } } },
+                                "password.5": { properties: { inherited: { }, value: { format: "password" } } },
+                                "password.6": { properties: { inherited: { }, value: { format: "password" } } },
+                                "collection.prop.2": {
+                                    type: "object",
+                                    properties: {
+                                        "password.7": { properties: { inherited: { }, value: { format: "password" } } },
+                                        "password.8": { properties: { inherited: { }, value: { format: "password" } } },
+                                        "password.9": { properties: { inherited: { }, value: { format: "password" } } }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                const values = new JSONValues({
+                    _id: "",
+                    _type: {},
+                    "password.1": { value: "password", inherited: false },
+                    "password.2": { value: null, inherited: true },
+                    "password.3": { value: null, inherited: false },
+                    "collection.prop.1": {
+                        "password.4": { value: "password", inherited: false },
+                        "password.5": { value: null, inherited: true },
+                        "password.6": { value: null, inherited: false },
+                        "collection.prop.2": {
+                            "password.7": { value: "password", inherited: false },
+                            "password.8": { value: null, inherited: true },
+                            "password.9": { value: null, inherited: false }
+                        },
+                        "not.in.schema": {
+                            "password.1": { value: "password", inherited: false },
+                            "password.2": null, inherited: false
+                        }
+                    }
+                });
+
+                const valuesWithoutNullPasswords = values.removeNullPasswords(schema);
+
+                it("removes non-grouped null passwords", () => {
+                    expect(valuesWithoutNullPasswords.raw["password.2"]).to.be.eql({ inherited: true });
+                    expect(valuesWithoutNullPasswords.raw["password.3"]).to.be.eql({ inherited: false });
+                });
+
+                it("removes null passwords from 'collection.prop.1' collection", () => {
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["password.5"])
+                        .to.be.eql({ inherited: true });
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["password.6"])
+                        .to.be.eql({ inherited: false });
+                });
+
+                it("removes null passwords from the collection property inside 'collection.prop.1' collection", () => {
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"]["password.8"])
+                        .to.be.eql({ inherited: true });
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"]["password.9"])
+                        .to.be.eql({ inherited: false });
+                });
+
+                it("leaves non-null passwords untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw["password.1"])
+                        .to.be.eql({ value: "password", inherited: false });
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["password.4"])
+                        .to.be.eql({ value: "password", inherited: false });
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["collection.prop.2"])
+                        .to.contain.keys("password.7");
+                });
+
+                it("leaves non schema properties untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("_id");
+                    expect(valuesWithoutNullPasswords.raw).to.contain.keys("_type");
+                    expect(valuesWithoutNullPasswords.raw["collection.prop.1"]["not.in.schema"])
+                        .to.be.eql({
+                            "password.1": { value: "password", inherited: false },
+                            "password.2": null, inherited: false
+                        });
+                });
+            });
+
+            context("when using a schema with the 'defaults' property", () => {
+                const schema = new JSONSchema({
+                    type: "object",
+                    properties: {
+                        defaults: {
+                            type: "object",
+                            properties: {
+                                "password.1": { format: "password" },
+                                "password.2": { format: "password" }
+                            }
+                        }
+                    }
+                });
+
+                const values = new JSONValues({
+                    defaults: {
+                        "password.1": "password",
+                        "password.2": null
+                    }
+                });
+
+                const valuesWithoutNullPasswords = values.removeNullPasswords(schema);
+
+                it("removes null passwords from 'defaults' collection", () => {
+                    expect(valuesWithoutNullPasswords.raw.defaults).to.not.have.keys("password.2");
+                });
+
+                it("leaves non-null passwords from 'defaults' collection untouched", () => {
+                    expect(valuesWithoutNullPasswords.raw.defaults).to.contain.keys("password.1");
+                });
             });
         });
     });

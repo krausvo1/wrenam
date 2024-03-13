@@ -11,6 +11,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        outline: 0;
 
         &.select-all-header-cell,
         &.select-row-cell {
@@ -29,18 +30,18 @@
         }
 
         &.fr-col-btn-1 {
-            width: 39px;
-            min-width: 39px;
+            width: 48px;
+            min-width: 48px;
         }
 
         &.fr-col-btn-2 {
-            width: 65px;
-            min-width: 65px;
+            width: 73px;
+            min-width: 73px;
         }
 
         &.fr-col-btn-3 {
-            width: 88px;
-            min-width: 88px;
+            width: 95px;
+            min-width: 95px;
         }
     }
 
@@ -85,6 +86,15 @@
     &.table-hover > tbody > tr {
         cursor: pointer;
     }
+
+    /* Reapplying the default bootstrap styles after we've previously overwritten them */
+    &.table-condensed {
+        > tbody > tr > td,
+        > thead > tr > th,
+        > tfoot > tr > td {
+            padding: 5px;
+        }
+    }
 }
 
 .am-inline-edit-table {
@@ -111,4 +121,13 @@
             }
         }
     }
+}
+
+.react-bootstrap-table th[data-row-selection] {
+    width: 50px;
+}
+
+.react-bootstrap-table-pagination {
+    float: right;
+    margin: 0 0 10px 0;
 }

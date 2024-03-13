@@ -40,6 +40,7 @@ class SessionsTable extends Component {
         };
     }
 
+    // eslint-disable-next-line camelcase
     UNSAFE_componentWillReceiveProps (nextProps) {
         const updated = _.findByValues(nextProps.data, "sessionHandle", _.map(this.state.checked, "sessionHandle"));
         this.setState({

@@ -68,7 +68,6 @@ define([
 
     obj.realm = {
         privileges    : realmsRedirector(15),
-        subjects      : realmsRedirector(17),
         sts           : realmsRedirector(19),
         redirectToTab (tabIndex, realm) {
             obj.getJATOPageSession(realm).done((session) => {

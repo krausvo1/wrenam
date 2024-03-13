@@ -114,11 +114,11 @@ define([
             this.data.status = {};
 
             if (this.data.entity.active) {
-                this.data.status.text = "common.user.active";
+                this.data.status.text = "common.form.active";
                 this.data.status.icon = "fa-check-circle";
                 this.data.status.class = "text-success";
             } else {
-                this.data.status.text = "common.user.inactive";
+                this.data.status.text = "common.form.inactive";
                 this.data.status.icon = "fa-ban";
                 this.data.status.class = "text-warning";
             }

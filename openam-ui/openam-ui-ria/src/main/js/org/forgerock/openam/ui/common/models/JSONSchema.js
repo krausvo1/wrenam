@@ -44,18 +44,10 @@ define([
     "lodash",
     "org/forgerock/openam/ui/common/models/schemaTransforms/transformBooleanTypeToCheckboxFormat",
     "org/forgerock/openam/ui/common/models/schemaTransforms/transformEnumTypeToString",
-    "org/forgerock/openam/ui/common/models/schemaTransforms/warnOnInferredPasswordWithoutFormat"
+    "org/forgerock/openam/ui/common/models/schemaTransforms/warnOnInferredPasswordWithoutFormat",
+    "components/form/schema/isObjectType"
 ], (i18next, _, transformBooleanTypeToCheckboxFormat, transformEnumTypeToString,
-        warnOnInferredPasswordWithoutFormat) => {
-    /**
-     * Determines whether the specified object is of type <code>object</code>
-     * @param   {Object}  object Object to determine the type of
-     * @returns {Boolean}        Whether the object is of type <code>object</code>
-     */
-    function isObjectType (object) {
-        return object.type === "object";
-    }
-
+        warnOnInferredPasswordWithoutFormat, isObjectType) => {
     function groupTopLevelSimpleProperties (raw) {
         const collectionProperties = _(raw.properties)
             .pickBy((property) => _.has(property, "properties"))
@@ -124,13 +116,13 @@ define([
      * @param {Array} callbacks Array of functions
      */
     function eachProperty (object, callbacks) {
-        if (isObjectType(object)) {
+        if (isObjectType.default(object)) {
             _.forEach(object.properties, (property, key) => {
                 _.forEach(callbacks, (callback) => {
                     callback(property, key);
                 });
 
-                if (isObjectType(property)) {
+                if (isObjectType.default(property)) {
                     eachProperty(property, callbacks);
                 }
             });
@@ -143,9 +135,11 @@ define([
      * @returns {Object} the transformed schema
      */
     function cleanJSONSchema (schema) {
-        eachProperty(schema, [transformBooleanTypeToCheckboxFormat,
+        eachProperty(schema, [
+            transformBooleanTypeToCheckboxFormat,
             transformEnumTypeToString,
-            warnOnInferredPasswordWithoutFormat]);
+            warnOnInferredPasswordWithoutFormat
+        ]);
 
         return schema;
     }
@@ -171,6 +165,7 @@ define([
         }
         addDefaultProperties (keys) {
             const schema = _.cloneDeep(this.raw);
+            schema.defaultProperties = _.union(schema.defaultProperties, keys);
             schema.defaultProperties = keys;
             return new JSONSchema(schema);
         }
@@ -187,8 +182,7 @@ define([
             return this.pick(this.getEnableKey());
         }
         getKeys (sort) {
-            // eslint-disable-next-line no-negated-condition
-            sort = typeof sort !== "undefined" ? sort : false;
+            sort = typeof sort === "undefined" ? false : sort;
 
             if (sort) {
                 const sortedSchemas = _.sortBy(_.map(this.raw.properties), "propertyOrder");
@@ -221,7 +215,11 @@ define([
          * @returns {Boolean} Whether this object is a collection
          */
         isCollection () {
-            return _.every(this.raw.properties, (property) => property.type === "object");
+            if (this.raw.properties) {
+                return _.every(this.raw.properties, (property) => property.type === "object");
+            } else {
+                return false;
+            }
         }
         isEmpty () {
             return _.isEmpty(this.raw.properties);
@@ -242,11 +240,19 @@ define([
             return new JSONSchema(schema);
         }
         /**
-         * Returns a new JSONSchema with all non-required properties removed.
-         * @returns {JSONSchema} JSONSchema object with non-required properties removed.
+         * Returns a new JSONSchema with only the required and default properties present.
+         * @returns {JSONSchema} JSONSchema object with only the required and default properties present.
          */
-        removeUnrequiredProperties () {
-            return this.omit((property) => property.required === false);
+        removeUnrequiredNonDefaultProperties () {
+            const schema = _.cloneDeep(this.raw);
+            const defaultProperties = this.raw.defaultProperties;
+            schema.properties = _.pickBy(this.raw.properties, (property, key) => {
+                const required = property.type === "object" && _.has(property, "properties.inherited")
+                    ? property.properties.value.required
+                    : property.required;
+                return _.includes(defaultProperties, key) || required;
+            });
+            return new JSONSchema(schema);
         }
         /**
          * Flattens schema properties to enable schema to be renderable. Adds inheritance metadata to each property of

@@ -65,7 +65,8 @@ define([
             }
 
             this.options = _.defaults(options, {
-                showOnlyRequiredAndEmpty: false
+                showOnlyRequiredAndEmpty: false,
+                showOnlyRequired: false
             });
         },
         render () {
@@ -75,7 +76,10 @@ define([
                 const requiredSchemaKeys = this.options.schema.getRequiredPropertyKeys();
                 const emptyValueKeys = this.options.values.getEmptyValueKeys();
                 const requiredAndEmptyKeys = _.intersection(requiredSchemaKeys, emptyValueKeys);
-                schema = schema.removeUnrequiredProperties().addDefaultProperties(requiredAndEmptyKeys);
+                schema = schema.removeUnrequiredNonDefaultProperties().addDefaultProperties(requiredAndEmptyKeys);
+            } else if (this.options.showOnlyRequired) {
+                const requiredSchemaKeys = this.options.schema.getRequiredPropertyKeys();
+                schema = schema.removeUnrequiredNonDefaultProperties().addDefaultProperties(requiredSchemaKeys);
             }
 
             this.subview = new JSONEditorView({
@@ -100,6 +104,12 @@ define([
         setData (data) {
             if (this.subview) {
                 return this.subview.setData(data);
+            }
+        },
+        destroy () {
+            if (this.subview) {
+                this.subview.destroy();
+                this.subview = null;
             }
         }
     });
