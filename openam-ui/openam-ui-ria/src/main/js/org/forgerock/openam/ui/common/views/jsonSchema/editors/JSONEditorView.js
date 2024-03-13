@@ -108,6 +108,9 @@ define([
             });
         },
         toggleInheritance (propertySchemaPath, propValue, isInherited) {
+            // update the data to hold whatever is now on UI before doing further manipulations
+            this.options.values = this.options.values.extend(this.getData());
+
             this.options.values = this.options.values.addValueForKey(propertySchemaPath, "inherited", isInherited);
             this.options.values = this.options.values.addValueForKey(propertySchemaPath, "value", propValue);
 
@@ -116,11 +119,15 @@ define([
         render () {
             this.$el.empty();
 
+            const watchlist = _.get(this.jsonEditor, "watchlist");
+
             this.jsonEditor = applyJSONEditorToElement(
                 this.$el,
                 this.options.schema,
                 this.options.values
             );
+
+            this.jsonEditor.watchlist = watchlist;
 
             if (!this.options.displayTitle) {
                 this.$el.find("[data-header]").parent().hide();
@@ -155,6 +162,16 @@ define([
         },
         setData (data) {
             this.options.values = this.options.values.extend(data);
+        },
+        destroy () {
+            // unwatch all properties before destroy
+            const watchlistKeys = _.keys(this.jsonEditor.watchlist);
+            _.forEach(watchlistKeys, (watchlistKey) => {
+                this.jsonEditor.unwatch(watchlistKey);
+            });
+
+            this.jsonEditor.destroy();
+            this.jsonEditor = null;
         }
     });
 

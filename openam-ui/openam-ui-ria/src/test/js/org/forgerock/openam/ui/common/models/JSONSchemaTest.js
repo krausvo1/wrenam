@@ -133,7 +133,7 @@ define([
 
         describe("#hasInheritance", () => {
             context("schema has inheritance", () => {
-                it("returns true", () => {
+                it("returns true when all schema's properties are inheritable", () => {
                     const jsonSchema = new JSONSchema({
                         type: "object",
                         properties: {
@@ -151,7 +151,7 @@ define([
                 });
             });
 
-            it("returns true when the schema has all inherited properties", () => {
+            it("returns false when there are schema's properties that are non-inheritable", () => {
                 const jsonSchema = new JSONSchema({
                     type: "object",
                     properties: {
@@ -169,32 +169,72 @@ define([
             });
         });
 
-        describe("#removeNonRequiredProperties", () => {
+        describe("#removeUnrequiredNonDefaultProperties", () => {
             let schema;
-
             beforeEach(() => {
                 const jsonSchema = new JSONSchema({
                     "type": "object",
                     "properties": {
-                        propertyCollection: {
-                            title: "",
-                            type: "object",
-                            properties: {
-                                "propertyKeyRequired": {
-                                    required: true
-                                },
-                                "propertyKeyNonRequired": {
-                                    required: false
-                                }
+                        "requiredDefault": {
+                            required: true
+                        },
+                        "unrequiredDefault": {
+                            required: false
+                        },
+                        "unrequiredNonDefault": {
+                            required: false
+                        },
+                        "requiredNonDefault": {
+                            required: true
+                        },
+                        "requiredDefaultInherited": {
+                            "type": "object",
+                            "properties": {
+                                "inherited" : {},
+                                "value": { required: true }
+                            }
+                        },
+                        "unrequiredDefaultInherited": {
+                            "type": "object",
+                            "properties": {
+                                "inherited" : {},
+                                "value": { required: false }
+                            }
+                        },
+                        "unrequiredNonDefaultInherited": {
+                            "type": "object",
+                            "properties": {
+                                "inherited" : {},
+                                "value": { required: false }
+                            }
+                        },
+                        "requiredNonDefaultInherited": {
+                            "type": "object",
+                            "properties": {
+                                "inherited" : {},
+                                "value": { required: true }
                             }
                         }
-                    }
+                    },
+                    "defaultProperties" : [
+                        "requiredDefault", "unrequiredDefault", "requiredDefaultInherited", "unrequiredDefaultInherited"
+                    ]
                 });
-                schema = jsonSchema.removeUnrequiredProperties();
+                schema = jsonSchema.removeUnrequiredNonDefaultProperties();
             });
-
             it("removes properties where \"required\" is \"false\"", () => {
-                expect(schema.raw.properties.propertyCollection).to.not.have.keys("propertyKeyNonRequired");
+                expect(schema.raw.properties).to.have.keys([
+                    "requiredDefault",
+                    "unrequiredDefault",
+                    "requiredNonDefault",
+                    "requiredDefaultInherited",
+                    "unrequiredDefaultInherited",
+                    "requiredNonDefaultInherited"
+                ]);
+                expect(schema.raw.properties).not.to.have.keys([
+                    "unrequiredNonDefault",
+                    "unrequiredNonDefaultInherited"
+                ]);
             });
         });
 

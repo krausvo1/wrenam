@@ -118,15 +118,6 @@ define([
             RedirectToLegacyConsole.realm.privileges(event);
         }
     }, {
-        startEvent: Constants.EVENT_REDIRECT_TO_JATO_SUBJECTS,
-        description: "",
-        dependencies: [
-            "org/forgerock/openam/ui/admin/utils/RedirectToLegacyConsole"
-        ],
-        processDescription (event, RedirectToLegacyConsole) {
-            RedirectToLegacyConsole.realm.subjects(event);
-        }
-    }, {
         startEvent: Constants.EVENT_REDIRECT_TO_JATO_AGENTS_OAUTH20,
         description: "",
         dependencies: [

@@ -19,8 +19,9 @@
  */
 define([
     "lodash",
-    "org/forgerock/openam/ui/common/util/Promise"
-], (_, Promise) => {
+    "org/forgerock/openam/ui/common/util/Promise",
+    "components/form/schema/isObjectType"
+], (_, Promise, isObjectType) => {
     const obj = {};
 
     /**
@@ -34,26 +35,18 @@ define([
         }
     }
     /**
-     * Determines whether the specified object is of type <code>object</code>
-     * @param   {Object}  object Object to determine the type of
-     * @returns {Boolean}        Whether the object is of type <code>object</code>
-     */
-    function isObjectType (object) {
-        return object.type === "object";
-    }
-    /**
      * Recursively invokes the specified functions over each object's properties
      * @param {Object} object   Object with properties
      * @param {Array} callbacks Array of functions
      */
     function eachProperty (object, callbacks) {
-        if (isObjectType(object)) {
+        if (isObjectType.default(object)) {
             _.forEach(object.properties, function (property, key) {
                 _.forEach(callbacks, function (callback) {
                     callback(property, key);
                 });
 
-                if (isObjectType(property)) {
+                if (isObjectType.default(property)) {
                     eachProperty(property, callbacks);
                 }
             });
