@@ -508,6 +508,7 @@ public class IdentityServicesImpl implements com.sun.identity.idsvcs.IdentitySer
 
             if (idType != null) {
                 List<AMIdentity> identities = fetchAMIdentities(idType, crestQuery, true, repo, searchModifiers);
+                // TODO: filter out special identities, just like "search" method does
                 List<IdentityDetails> result = new ArrayList<>();
                 for (AMIdentity identity : identities) {
                     result.add(convertToIdentityDetails(identity, null));

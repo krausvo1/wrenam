@@ -14,7 +14,7 @@
  * Copyright 2018-2022 ForgeRock AS.
  */
 import { bindActionCreators } from "redux";
-import { findIndex, isEqual, map, values } from "lodash";
+import { some, isEqual, map, values } from "lodash";
 import { t } from "i18next";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -56,12 +56,18 @@ class ListGroupsContainer extends Component {
 
         const hasGroupsUsers = (realm, ids) => {
             return Promise.all(map(ids, (id) => get(realm, id))).then((groups) => {
-                const userCounts = map(groups, (group) => group.members.uniqueMember.length);
-                return findIndex(userCounts, (count) => count > 0) >= 0;
+                // TODO: tohle je asi zase nějakej špatně nastavenej LDAP, stejně jako inteuser status apod.
+
+                // TODO: this is original code from am-external, but our
+                // response to READ does not contain "members", only "member" that is plain array
+                // so we don't support uniqueMember for now.
+                // const userCounts = map(groups, (group) => group.members.uniqueMember.length);
+                // return findIndex(userCounts, (count) => count > 0) >= 0;
+                return some(groups, (group) => group.member.length > 0);
             });
         };
 
-        const removeUsers = (realm, ids) => {
+        const removeGroups = (realm, ids) => {
             remove(realm, ids).then(() => {
                 Messages.addMessage({ message: t("config.messages.CommonMessages.changesSaved") });
                 this.props.pagination.onDataDelete(ids.length);
@@ -77,7 +83,7 @@ class ListGroupsContainer extends Component {
                 : t("console.identities.groups.confirmDeleteSelected", { count: ids.length });
 
             showConfirmationBeforeAction({ message }, () => {
-                removeUsers(realm, ids);
+                removeGroups(realm, ids);
             });
         });
     };

@@ -122,6 +122,13 @@ public final class IdentityResourceV3 implements CollectionResourceProvider {
     @Override
     public Promise<ActionResponse, ResourceException> actionCollection(Context context, ActionRequest request) {
 
+
+        // TODO: tady asi potřebuju handlovat schema a template
+        // schema: potřebuju schema z amUser.xml (<User>). Ale co skupiny?
+        // Ideální by bylo tady předat ten request nějakýmu SMSRequestHandleru ? kterej
+        // umí zpracovávat schema, template akce
+        // SMSResourceProvider 287, 292
+
         final String action = request.getAction();
         if ("register".equalsIgnoreCase(action)) {
             logAsDeprecated(action);
@@ -223,6 +230,7 @@ public final class IdentityResourceV3 implements CollectionResourceProvider {
                 userDetails = identityServices.searchIdentityDetails(crestQuery,
                         getIdentityServicesAttributes(realm, objectType),
                         admin);
+                // TODO: tady by bylo potřeba odstranit speciální identity, pokud bych chtěl volat s queryId=*
             }
 
             String principalName = PrincipalRestUtils.getPrincipalNameFromServerContext(context);

@@ -104,6 +104,11 @@ define([
         icon: "fa-users",
         route: "realmsIdentities"
     }, {
+        // TODO FIXME: Drop this legacy record
+        title: "Subjects LEGACY",
+        icon: "fa-users",
+        event: "main.navigation.EVENT_REDIRECT_TO_JATO_SUBJECTS"
+    }, {
         title: "console.common.navigation.sts",
         icon: "fa-tty",
         event: "main.navigation.EVENT_REDIRECT_TO_JATO_STS"

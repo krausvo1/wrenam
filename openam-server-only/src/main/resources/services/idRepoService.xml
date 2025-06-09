@@ -84,7 +84,7 @@
                             order="9900" />
                         <AttributeSchema name="inetUserStatus"
                             type="single" syntax="string"
-                            i18nKey="staturs"
+                            i18nKey="status"
                             order="10300">
                             <DefaultValues><Value>Active</Value></DefaultValues>
                         </AttributeSchema>
@@ -966,7 +966,10 @@
                     <AttributeSchema name="sun-idrepo-ldapv3-config-connection_pool_min_size"
                         type="single"
                         syntax="number"
-                        i18nKey="">
+                        i18nKey="a2008"
+                        order="1150">
+                        <!-- TODO tuhle opravue ve všech subschematech -->
+                        <!-- OPENAM-14308: LDAP Connection Pool Minimum Size for Identity Store missing from XUI -->
                         <DefaultValues>
                             <Value>1</Value>
                         </DefaultValues>

@@ -51,6 +51,7 @@ const Table = ({ keyField, onRowClick, onSelectedChange, options = {}, selectedI
     for (let i = 0; i < restProps.data.length; i++) {
         const current = restProps.data[i];
         const keys = Object.keys(current);
+        // TODO FIXME: je potřeba tady to placeholderovani? využíváme to vůbec? umí to naše AMko (backend)?
         for (let j = 0; j < keys.length; j++) {
             const current = restProps.data[i][keys[j]];
             PLACEHOLDER_TYPES.forEach((type) => {
